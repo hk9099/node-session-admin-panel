@@ -1,0 +1,277 @@
+<%- include ('header') %>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0">
+              <h6>Authors table</h6>
+            </div>
+
+
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <form action="/admin/add-data" method="POST" enctype="multipart/form-data">
+                  <div class="mb-3">
+                    <label for="FirstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="FirstName" name="FirstName">
+                  </div>
+                  <div class="mb-3">
+                    <label for="LastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="LastName" name="LastName">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="Email" name="Email">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Date" class="form-label">Date of birth</label>
+                    <input type="Date" class="form-control" id="Date" name="Date">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Phone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="Phone" name="Phone">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="Address" name="Address">
+                  </div>
+                  <!-- create city array -->
+                  <% const cities=[{ city_id: 1, city_name: "surat" }, { city_id: 2, city_name: "ahmedabad" }, {
+                    city_id: 3, city_name: "vadodara" }, { city_id: 4, city_name: "rajkot" }, { city_id: 5,
+                    city_name: "bhavnagar" }, { city_id: 6, city_name: "jamnagar" }, { city_id: 7, city_name: "junagadh"
+                    }, { city_id: 8, city_name: "gandhinagar" }, { city_id: 9, city_name: "anand" }, { city_id: 10,
+                    city_name: "bharuch" }, { city_id: 11, city_name: "bhuj" }, { city_id: 12, city_name: "porbandar" },
+                    { city_id: 13, city_name: "nadiad" }, { city_id: 14, city_name: "navsari" }, { city_id: 15,
+                    city_name: "morbi" }, { city_id: 16, city_name: "surendranagar" }, { city_id: 17,
+                    city_name: "veraval" }, { city_id: 18, city_name: "valsad" }, { city_id: 19, city_name: "mahesana"
+                    }, { city_id: 20, city_name: "ambaji" }, { city_id: 21, city_name: "ankleshwar" }, { city_id: 22,
+                    city_name: "bharuch" } ]; %>
+                    <div class="mb-3">
+                      <label for="City" class="form-label">City</label>
+                      <select name="city" id="city">
+                        <option value="">Select City</option>
+                        <% for (let i=0; i < cities.length; i++) { %>
+                          <option value="<%= cities[i].city_name %>" id="<%= cities[i].city_id %>">
+                            <%= cities[i].city_name %>
+                          </option>
+                          <% } %>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="gender" class="form-label">gender :- </label>
+
+                      <label for="male" class="form-label">male</label>
+                      <input type="radio" id="gender" name="gender" value="male">
+                      <label for="female" class="form-label">female</label>
+                      <input type="radio" id="gender" name="gender" value="female">
+                      <label for="other" class="form-label">other</label>
+                      <input type="radio" id="gender" name="gender" value="other">
+                    </div>
+                    <div class="mb-3">
+                      <label for="hobbies" class="form-label">hobbies :- </label>
+                      <label for="reading" class="form-label">reading</label>
+                      <input type="checkbox" id="hobbies" name="hobbies[]" value="reading">
+                      <label for="writing" class="form-label">writing</label>
+                      <input type="checkbox" id="hobbies" name="hobbies[]" value="writing">
+                      <label for="singing" class="form-label">singing</label>
+                      <input type="checkbox" id="hobbies" name="hobbies[]" value="singing">
+                      <label for="dancing" class="form-label">dancing</label>
+                      <input type="checkbox" id="hobbies" name="hobbies[]" value="dancing">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="image" class="form-label">image</label>
+                      <input type="file" class="form-control" id="image" name="image" multiple>
+                    </div>
+
+
+                    <div class="mb-3">
+                      <label for="password" class="form-label">add content</label>
+                      <textarea name="content" id="content" style="width: 100%;"></textarea>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form action="/admin/update/<%= editdata._id %>" method="POST" enctype="multipart/form-data">
+                  <div class="mb-3">
+                    <label for="FirstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="FirstName" name="FirstName" value="<%= editdata.FirstName %>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="LastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="LastName" name="LastName" value="<%= editdata.LastName %>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="Email" name="Email" value="<%= editdata.Email %>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Date" class="form-label">Date of birth</label>
+                    <input type="Date" class="form-control" id="Date" name="Date" value="<%= editdata.Date %>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Phone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="Phone" name="Phone" value="<%= editdata.Phone %>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="Address" name="Address" value="<%= editdata.Address %>">
+                  </div>
+                   <div class="mb-3">
+                      <label for="gender" class="form-label">gender :- </label>
+                      <label for="male" class="form-label">male</label>
+                      <input type="radio" id="male" name="gender" value="male" <% if (editdata.gender === 'male') { %>checked<% } %>>
+                      <label for="female" class="form-label">female</label>
+                      <input type="radio" id="female" name="gender" value="female" <% if (editdata.gender === 'female') { %>checked<% } %>>
+                      <label for="other" class="form-label">other</label>
+                      <input type="radio" id="other" name="gender" value="other" <% if (editdata.gender === 'other') { %>checked<% } %>>
+                    </div>
+                   <div class="mb-3">
+                      <label for="hobbies" class="form-label">hobbies :- </label>
+                      <label for="reading" class="form-label">reading</label>
+                      <input type="checkbox" id="reading" name="hobbies[]" value="reading" <% if (editdata.hobbies && editdata.hobbies.includes('reading')) { %>checked<% } %>>
+                      <label for="writing" class="form-label">writing</label>
+                      <input type="checkbox" id="writing" name="hobbies[]" value="writing" <% if (editdata.hobbies && editdata.hobbies.includes('writing')) { %>checked<% } %>>
+                      <label for="singing" class="form-label">singing</label>
+                      <input type="checkbox" id="singing" name="hobbies[]" value="singing" <% if (editdata.hobbies && editdata.hobbies.includes('singing')) { %>checked<% } %>>
+                      <label for="dancing" class="form-label">dancing</label>
+                      <input type="checkbox" id="dancing" name="hobbies[]" value="dancing" <% if (editdata.hobbies && editdata.hobbies.includes('dancing')) { %>checked<% } %>>
+
+                    </div>
+
+
+                    <div class="mb-3">
+                      <label for="image" class="form-label">image</label>
+                      <input type="file" class="form-control" id="image" name="image" multiple>
+                      <% if (editdata.image && Array.isArray(editdata.image)) { %>
+                        <% editdata.image.forEach(function (img) { %>
+                            <img src="<%= img %>" alt="" style="width: 100px; height: 100px;">
+                            <a href="/deleteimg?img=<%= img %>"><i class="fas fa-times"></i></a>
+                        <% }) %>
+                    <% } %>
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">add content</label>
+                      <textarea name="content" id="content" style="width: 100%;" value="<%= editdata.content %>"></textarea>
+                    </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+      <% if (success && success.length> 0) { %>
+        <div class="success-message">
+          <%= success[0] %>
+        </div>
+        <% } %>
+
+          <!-- Display error message if available -->
+          <% if (error && error.length> 0) { %>
+            <div class="error-message">
+              <%= error[0] %>
+            </div>
+            <% } %>
+              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+              <script>
+                $(document).ready(function () {
+                  // Remove success message after 5 seconds
+                  setTimeout(function () {
+                    $('.success-message').fadeOut('slow', function () {
+                      $(this).remove();
+                    });
+                  }, 5000);
+
+                  // Remove error message after 5 seconds
+                  setTimeout(function () {
+                    $('.error-message').fadeOut('slow', function () {
+                      $(this).remove();
+                    });
+                  }, 5000);
+                });
+              </script>
+              <div class="row">
+                <div class="col-12">
+                  <div class="card mb-4">
+                    <div class="card-header pb-0">
+                      <h6>Projects table</h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                      <div class="table-responsive p-0">
+                        <% if (data && data.length> 0) { %>
+                          <table class="table align-items-center mb-0">
+                            <thead class="table-header">
+                              <tr class="table-header">
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Date</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Gender</th>
+                                <th>Hobbies</th>
+                                <th>Image</th>
+                                <th>Content</th>
+                              </tr>
+                            </thead>
+                            <tbody id="table-body">
+                              <% data.forEach(function(item) { %>
+                                <tr class="table-row">
+                                  <td>
+                                    <%= item.FirstName %>
+                                      <%= item.LastName %>
+                                  </td>
+                                  <td>
+                                    <%= item.Email %>
+                                  </td>
+                                  <td>
+                                    <%= item.Date.getDate() + "/" + (item.Date.getMonth() + 1) + "/" +
+                                      item.Date.getFullYear() %>
+                                  </td>
+                                  <td>
+                                    <%= item.Phone %>
+                                  </td>
+                                  <td>
+                                    <%= item.Address %>
+                                  </td>
+                                  <td>
+                                    <%= item.city %>
+                                  </td>
+                                  <td>
+                                    <%= item.gender %>
+                                  </td>
+                                  <td>
+                                    <%= item.hobbies %>
+                                  </td>
+                                  <td>
+                                    <% for (let i=0; i < item.image.length; i++) { %>
+                                      <img src="<%= item.image[i] %>" alt="image" width="100px" height="100px">
+                                      <% } %>
+                                  </td>
+                                  <td>
+                                    <%= item.content %>
+                                  </td>
+                                  <td>
+                                  <td>
+                                    <a href="/admin/edit/<%= item._id %>" class="btn btn-primary">Edit</a>
+                                  </td>
+                                  </td>
+                                  <td>
+                                    <a href="delete/<%= item.id %>" class="btn btn-danger">Delete</a>
+                                  </td>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                          </table>
+                          <% } else { %>
+                            <h6 class="text-center mt-3 bg-light p-3">No data found</h6>
+                            <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% include ('footer') %>
