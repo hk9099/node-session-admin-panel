@@ -8,7 +8,7 @@ const flash = require('express-flash');
 
 
 homerouter.get('/', homecontroller.index);
-
+homerouter.get('/blog_single/:id', homecontroller.showblog);
 
 
 homerouter.use('/admin', require('../admin/signupRouter'));

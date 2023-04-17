@@ -285,45 +285,19 @@
 				<h2>Latest Posts</h2>
 				<div class="section-dec"></div>
 			</div>
+			<% for (var i=0; i < blogdata.length; i++) { %>
 			<div class="blog-item">
 				<div class="col-md-4">
-					<a href="blog-single.html"><img src="files/images/01-blog.jpg" alt=""></a>
+					<a href="/blog_single/<%= blogdata[i]._id %>"><img src="<%= blogdata[i].image %>" alt=""></a>
 					<h3><a href="blog-single.html">Lorum Ipsum5</a></h3>
-					<span><a href="#">Syam Kesav</a> / <a href="#">6 June 2015</a> / <a
-							href="#">Uncategorized</a></span>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit alis quam est leo, imperdiet eget dictum
-						sed, congue non erosa senean sed ligula hendrerit...</p>
+					<span><a href="#"><%= blogdata[i].title %></a> / <a href="#"><%= blogdata[i].date %></a> / <a href="#"><%= blogdata[i].catagory %></a></span>
+					<p><%= blogdata[i].content %></p>
 					<div class="read-more">
-						<a href="blog-single.html">Read more</a>
+						<a href="<%= blogdata[i]._id %>">Read More</a>
 					</div>
 				</div>
 			</div>
-			<div class="blog-item">
-				<div class="col-md-4">
-					<a href="blog-single.html"><img src="files/images/02-blog.jpg" alt=""></a>
-					<h3><a href="blog-single.html">Lorum Ipsum5</a></h3>
-					<span><a href="#">Manohar Raj</a> / <a href="#">6 June 2015</a> / <a
-							href="#">Uncategorized</a></span>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit alis quam est leo, imperdiet eget dictum
-						sed, congue non erosa senean sed ligula hendrerit...</p>
-					<div class="read-more">
-						<a href="blog-single.html">Read more</a>
-					</div>
-				</div>
-			</div>
-			<div class="blog-item">
-				<div class="col-md-4">
-					<a href="blog-single.html"><img src="files/images/03-blog.jpg" alt=""></a>
-					<h3><a href="blog-single.html">Lorum Ipsum5</a></h3>
-					<span><a href="#">George Yeti</a> / <a href="#">6 June 2015</a> / <a
-							href="#">Uncategorized</a></span>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit alis quam est leo, imperdiet eget dictum
-						sed, congue non erosa senean sed ligula hendrerit...</p>
-					<div class="read-more">
-						<a href="blog-single.html">Read more</a>
-					</div>
-				</div>
-			</div>
+			<% } %>
 		</div>
 	</section>
 

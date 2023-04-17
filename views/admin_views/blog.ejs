@@ -1,0 +1,130 @@
+<%- include ('header') %>
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <h6>Authors table</h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <form action="/admin/addblog" method="POST" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="FirstName" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="FirstName" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="FirstName" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="date" name="date">
+                                </div>
+                                <% const catagory = ['nature', 'travel', 'food', 'lifestyle', 'fashion', 'photography', 'architecture', 'business', 'technology', 'education', 'health', 'sports', 'entertainment', 'music', 'politics', 'religion', 'science', 'social media', 'other'] %>
+                                    <div class="mb-3">
+                                        <label for="catagory" class="form-label">Catagory</label>
+                                        <select class="form-select" aria-label="Default select example" name="catagory">
+                                            <option value="">Select Catagory</option>
+                                            <% for (let i=0; i < catagory.length; i++) { %>
+                                                <option value="<%= catagory[i] %>"><%= catagory[i] %></option>
+                                                <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="content" class="form-label">Add content</label>
+                                        <textarea name="content" id="content" style="width: 100%;"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="about" class="form-label">About Us</label>
+                                        <textarea name="about" id="content" style="width: 100%;"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="image" class="form-label">image</label>
+                                        <input type="file" class="form-control" id="image" name="image" multiple>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <input type="checkbox" class="form-check-input" id="status" name="isActive"
+                                            checked>
+                                        <label class="form-check-label" for="status">Active</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+         <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+                <% if (blog && blog.length> 0) { %>
+                    <table class="table align-items-center mb-0">
+                        <thead class="table-header">
+                            <tr class="table-header">
+                                <th>Title</th>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Catagory</th>
+                                <th>Content</th>
+                                <th>About Us</th>
+                                <th>Image</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <% blog.forEach(function(item) { %>
+                                <tr class="table-row">
+                                    <td>
+                                        <%= item.title %>
+                                    </td>
+                                    <td>
+                                        <%= item.name %>
+                                    </td>
+                                    <td>
+                                        <%= item.date %>
+                                    </td>
+                                    <td>
+                                        <%= item.catagory %>
+                                    </td>
+                                    <td>
+                                        <%= item.content %>
+                                    </td>
+                                    <td>
+                                        <%= item.about %>
+                                    </td>
+                                    <td>
+                                        <% for (let i=0; i < item.image.length; i++) { %>
+                                            <img src="<%= item.image[i] %>" alt="image" width="100px" height="100px">
+                                            <% } %>
+                                    </td>
+                                    <td>
+                                    <td>
+                                        <% if (item.isActive) { %>
+                                            <a href="/admin/blog/<%= item._id %>/false"
+                                                class="btn btn-success">Active</a>
+                                            <% } else { %>
+                                                <a href="/admin/blog/<%= item._id %>/true"
+                                                    class="btn btn-danger">Inactive</a>
+                                                <% } %>
+                                    </td>
+                                    <td>
+                                        <a href="edit/<%= item._id %>" class="btn btn-primary">Edit</a>
+                                    </td>
+                                    </td>
+                                    <td>
+                                        <a href="deleteblog/<%= item._id %>" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                        <h6 class="text-center mt-3 bg-light p-3">No data found</h6>
+                        <% } %>
+            </div>
+        </div>
+
+        <% include ('footer') %>
