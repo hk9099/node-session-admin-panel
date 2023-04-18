@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "build": "npm run clean && npm run build:css && npm run build:js",
+    "build:css": "sass public/css/main.scss public/css/main.css",
+    "build:js": "browserify public/js/main.js -o public/js/bundle.js",
+    "clean": "rm -rf public/css/* && rm -rf public/js/*"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +29,8 @@
     "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "sass": "^1.37.5",
+    "browserify": "^17.0.0"
   }
 }

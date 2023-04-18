@@ -8,7 +8,12 @@ module.exports.index = async (req, res) => {
     res.render('client/index', { 'sliderdata': sliderdata, 'blogdata': blogdata });
 }
 
-module.exports.showblog = async (req, res) => {
-    const blogdata = await blogData.findById(req.params.id);
-    res.render('client/blog_single', { 'blogdata': blogdata });
+module.exports.blogsingle = async (req, res) => {
+    try {
+        const dataofblog = await blogData.findById(req.params.id);
+        res.render('client/blogsingle', { 'recordofblog': dataofblog });
+    } catch (err) {
+        console.log(err);
+    }
 }
+

@@ -9,10 +9,11 @@ const passport = require('passport');
 const passportLocal = require('./config/passport');
 const bodyParser = require('body-parser');
 const bycrypt = require('bcrypt');
-const flash = require('express-flash');
+const flash = require('connect-flash');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const multer = require('multer');
+const flashConnect = require('./config/message');
 
 // set view engine
 app.set('view engine', 'ejs');
@@ -45,6 +46,7 @@ app.use(bodyParser.json())
 
 // set routes
 app.use(flash());
+app.use(flashConnect.setFlash);
 
 // routes
 app.use('/', require('./routes/client/homerouter'));

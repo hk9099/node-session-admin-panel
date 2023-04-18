@@ -1,4 +1,6 @@
 <%- include('client_header') %>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css">
+
 	<div class="slider">
 		<div class="fullwidthbanner-container">
 			<div class="fullwidthbanner">
@@ -23,7 +25,8 @@
 							<div class="tp-caption slider-btn sfb tp-resizeme start" data-x="center" data-hoffset="0"
 								data-y="510" data-speed="1000" data-start="2200" data-easing="Power4.easeOut"
 								data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">
-								<a href="#" class="btn btn-slider">Discover More</a></div>
+								<a href="#" class="btn btn-slider">Discover More</a>
+							</div>
 						</li>
 						<% } %>
 				</ul>
@@ -285,19 +288,29 @@
 				<h2>Latest Posts</h2>
 				<div class="section-dec"></div>
 			</div>
+
 			<% for (var i=0; i < blogdata.length; i++) { %>
-			<div class="blog-item">
-				<div class="col-md-4">
-					<a href="/blog_single/<%= blogdata[i]._id %>"><img src="<%= blogdata[i].image %>" alt=""></a>
-					<h3><a href="blog-single.html">Lorum Ipsum5</a></h3>
-					<span><a href="#"><%= blogdata[i].title %></a> / <a href="#"><%= blogdata[i].date %></a> / <a href="#"><%= blogdata[i].catagory %></a></span>
-					<p><%= blogdata[i].content %></p>
-					<div class="read-more">
-						<a href="<%= blogdata[i]._id %>">Read More</a>
+				<a href="/client/blogsingle/<%= blogdata[i]._id %>" class="blog-link">
+					<div class="blog-item">
+						<div class="col-md-4">
+							<img src="<%= blogdata[i].image %>" alt="">
+							<h3>
+								<%= blogdata[i].title %>
+							</h3>
+							<span>
+								<%= blogdata[i].date %> / <%= blogdata[i].catagory %>
+							</span>
+							<p>
+								<%= blogdata[i].content %>
+							</p>
+							<div class="read-more">
+								<a href="/client/blogsingle/<%= blogdata[i]._id %>">Read More</a>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<% } %>
+				</a>
+
+				<% } %>
 		</div>
 	</section>
 
