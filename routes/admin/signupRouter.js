@@ -36,7 +36,6 @@ signUpRouter.get('/blog/:id/:action', passport.check, blogcontroller.updateBlogS
 signUpRouter.get('/deleteblog/:id', passport.check, blogcontroller.deleteblog);
 
 
-
 //google auth
 signUpRouter.get('/auth/google',
     passport.authenticate('google', { scope: ['profile'] }));

@@ -108,12 +108,7 @@
                   <h3 class="font-weight-bolder text-info text-gradient">Welcome back</h3>
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
-                
-                <% if (messages.error) { %>
-                  <%= messages.error %>
-                    <% } %>
-
-
+             
                       <div class="card-body">
                         <form action="/admin/signIndata" method="POST" role="form text-left">
                           <label>Email</label>
@@ -272,6 +267,22 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+  
+<script>
+  <% if (flash.success) { %>
+    new Noty({
+      text: '<%= flash.success[0] %>',
+      type: 'success'
+    }).show();
+  <% } else if (flash.error) { %>
+    new Noty({
+      text: '<%= flash.error[0] %>',
+      type: 'error'
+    }).show();
+  <% } %>
+</script>
+
+
 </body>
 
 </html>

@@ -13,8 +13,8 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'hk.bitcoding@gmail.com', // Your Gmail email address
-        pass: 'cbwgyagcyfxucseh' // Your Gmail password
+        user: 'hk.bitcoding@gmail.com',
+        pass: 'cbwgyagcyfxucseh' 
     }
 });
 
@@ -27,7 +27,7 @@ const sendVerificationEmail = async (email, token) => {
             html: `
                 <p>Hi there,</p>
                 <p>Please click on the following link to verify your account:</p>
-                <a href="http://localhost:8083/verify/${token}">Verify Account</a>
+                <a href="http://localhost:8083/admin/verify/${token}">Verify Account</a>
             `
         };
 
@@ -42,6 +42,7 @@ const sendVerificationEmail = async (email, token) => {
 module.exports.signin = async (req, res) => {
     // console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {
+        req.flash('success', 'You are logged in');
         return res.redirect('admin/dashboard');
     } else {
         return res.render('admin_views/sign-in');
@@ -52,9 +53,7 @@ module.exports.signupPage = async (req, res) => {
     if (req.isAuthenticated()) {
         return res.redirect('admin/dashboard');
     } else {
-        const signupSuccess = req.query.signup === 'success';
-        const errors = req.query.errors === 'true';
-        return res.render('admin_views/sign-up', { signupSuccess, errors });
+        return res.render('admin_views/sign-up');
     }
 }
 
@@ -127,10 +126,10 @@ module.exports.verifyAccount = async (req, res) => {
             await user.save();
 
             // Redirect to a success page or show a success message
-            return res.render('admin_views/sign-in', { signupSuccess: true, isVerified: true, errors: [{ msg: 'Account verified successfully' }] });
+            return res.render('admin_views/sign-in', { signupSuccess: true, isVerified: true });
         } else {
             // Redirect to an error page or show an error message
-            return res.render('admin_views/sign-up', { signupSuccess: false, errors: [{ msg: 'Verification failed' }] });
+            return res.render('admin_views/sign-up', { signupSuccess: false, isVerified: false });
         }
     } catch (error) {
         // Handle any errors that may occur
@@ -165,7 +164,7 @@ module.exports.signIndata = async (req, res) => {
         // Add user data to session
         req.session.userId = user._id;
         req.session.email = user.email;
-        // ... add more user data to session as needed
+        req.flash('success', 'You are logged in');
         return res.redirect('admin/dashboard');
     } else {
         // Passwords do not match, show an error message
@@ -235,25 +234,9 @@ module.exports.logout = async (req, res) => {
 
 module.exports.tables = async (req, res) => {
     const data = await addData.find({});
-    const successMessage = req.flash('success');
-    const errorMessage = req.flash('error');
-
-    if (successMessage && successMessage.length > 0) {
-        setTimeout(function () {
-            req.flash('success', '');
-            res.render('admin_views/tables', { "data": data, "success": null, "error": errorMessage });
-        }, 5000);
-    }
-
-    if (errorMessage && errorMessage.length > 0) {
-        setTimeout(function () {
-            req.flash('error', '');
-            res.render('admin_views/tables', { "data": data, "success": successMessage, "error": null });
-        }, 5000);
-    }
-
-    res.render('admin_views/tables', { "editdata": '', "data": data, "success": successMessage, "error": errorMessage });
+    res.render('admin_views/tables', { "editdata": '', "data": data });
 };
+
 
 
 module.exports.addData = async (req, res) => {

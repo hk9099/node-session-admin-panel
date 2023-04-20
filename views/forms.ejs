@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" />
+</head>
+
+<body>
+    <form method="POST" action="/submit-form" class="box is-half" enctype="multipart/form-data">
+
+        <h1 class="title">Add User</h1>
+
+        <div class="field">
+            <label class="label" for="name">Name:</label>
+            <div class="control">
+                <input class="input" type="text" id="name" name="name">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" for="email">Email:</label>
+            <div class="control">
+                <input class="input" type="email" id="email" name="email">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" for="message">Message:</label>
+            <div class="control">
+                <textarea class="textarea" id="message" name="message"></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" for="hobbies">Hobbies:</label>
+            <div class="control">
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="coding">
+                    Coding
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="reading">
+                    Reading
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="gaming">
+                    Gaming
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="sports">
+                    Sports
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="music">
+                    Music
+                </label>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" for="image">Image:</label>
+            <div class="control">
+                <input class="input" type="file" id="images" name="images" multiple>
+            </div>
+        </div>
+
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-link" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <form method="POST" action="/edit/<%= users.id %>" class="box is-half" enctype="multipart/form-data">
+
+        <h1 class="title">Edit User</h1>
+
+        <div class="field">
+            <label for="name" class="label">Name:</label>
+            <div class="control">
+                <input type="text" id="name" name="name" class="input" value="<%= users.name %>">
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="email" class="label">Email:</label>
+            <div class="control">
+                <input type="email" id="email" name="email" class="input" value="<%= users.email %>">
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="message" class="label">Message:</label>
+            <div class="control">
+                <textarea id="message" name="message" class="textarea"><%= users.message %></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="hobbies" class="label">Hobbies:</label>
+            <div class="control">
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="coding" <% if (users.hobbies &&
+                        users.hobbies.includes('coding')) { %>checked<% } %>>
+                        Coding
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="reading" <% if (users.hobbies &&
+                        users.hobbies.includes('reading')) { %>checked<% } %>>
+                        Reading
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="gaming" <% if (users.hobbies &&
+                        users.hobbies.includes('gaming')) { %>checked<% } %>>
+                        Gaming
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="sports" <% if (users.hobbies &&
+                        users.hobbies.includes('sports')) { %>checked<% } %>>
+                        Sports
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="hobbies[]" value="music" <% if (users.hobbies &&
+                        users.hobbies.includes('music')) { %>checked<% } %>>
+                        Music
+                </label>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="image" class="label">Image:</label>
+            <div class="control">
+                <input type="file" id="image" name="image" class="input" value="<%= users.image %>">
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button is-primary">Update</button>
+            </div>
+        </div>
+    </form>
+
+
+
+    <table class="table is-fullwidth">
+        <h1 class="title">Users</h1>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Hobbies</th>
+                <th>Images</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i<users.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= users[i].name %>
+                    </td>
+                    <td>
+                        <%= users[i].email %>
+                    </td>
+                    <td>
+                        <%= users[i].message %>
+                    </td>
+                    <td>
+                        <%= users[i].hobbies %>
+                    </td>
+                    <td>
+                        <% if (users[i].images) { %>
+                            <% for (var j=0; j < users[i].images.length; j++) { %>
+                                <img class="zoom-image" src="/media/<%= users[i].images[j] %>" alt="image"
+                                    width="100px">
+                                <% } %>
+                                    <% } %>
+                    </td>
+                    <style>
+                        .zoom-image {
+                            transition: all 0.3s ease-in-out;
+                            transform: scale(1);
+                        }
+
+                        .zoom-image:hover {
+                            transform: scale(5);
+                            z-index: 999;
+                            position: relative;
+                        }
+                    </style>
+
+                    <td>
+                        <div class="buttons">
+                            <a class="button is-small is-primary" href="/edit/<%= users[i].id %>">
+                                <span class="icon">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                                <span>Edit</span>
+                            </a>
+                            <a class="button is-small is-danger" href="/delete/<%= users[i].id %>">
+                                <span class="icon">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                <span>Delete</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
+
+
+</body>
+
+</html>
